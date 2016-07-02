@@ -1,0 +1,10 @@
+# vars file for mysql
+# MySQL my.cnf settings
+mysql_root_user: root
+mysql_root_password: password
+mysql_db: wordpress
+mysql_max_allowed_packet: 128M
+mysql_innodb_file_per_table: innodb_file_per_table
+mysql_character_set_server: utf8
+mysql_collation_server: utf8_general_ci
+#mysql_port: "{{ mysql.port | default(3306) }}"

@@ -1,0 +1,6 @@
+---
+# vars file for wp
+wp_db_name: wordpress
+wp_db_user: root
+wp_db_password: password
+wp_db_host: localhost

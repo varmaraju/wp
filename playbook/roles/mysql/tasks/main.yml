@@ -1,0 +1,37 @@
+---
+# tasks file for mysql
+  - name: install mysql
+    apt: name=mysql-server update_cache=yes state=latest
+
+  - name: Install the Python MySQLB module
+    apt: name=python-mysqldb update_cache=yes state=latest
+    notify: Start the mysql server
+
+
+
+  - name: MySQL | Create MySQL configuration file.
+    template: >
+       src=mysql.my.cnf.j2
+       dest=/etc/my.cnf
+
+
+  - name: MySQL | Set the root password.
+    sudo: yes
+    mysql_user: >
+       name={{ mysql_root_user }}
+       host={{ item }}
+       password={{ mysql_root_password }}
+    with_items:
+       - "{{ ansible_hostname }}"
+       - localhost
+
+
+  - name: MySQL | Config for easy access as root user.
+    template: >
+       src=mysql_root.my.cnf.j2
+       dest=/root/.my.cnf
+       owner=root
+       mode=0600
+
+  - name: Create mysql database
+    mysql_db: name={{ mysql_db }} state=present
